@@ -1,11 +1,11 @@
 version: 2
 jobs:
     build:
-        working_directory: /go/src/github.com/pkryvyi/go
+        working_directory: /go/src/github.com/go
         environment:
-            PROJECT_ID: webapp-207620
-            CLUSTER_NAME: webapp207620-cluster
-            COMPUTE_ZONE: europe-west1-b
+            PROJECT_ID: tactile-entry-204411 
+            CLUSTER_NAME: tactile-entry-204411-cluster
+            COMPUTE_ZONE: europe-west2-a
     #As specified in Deployment.yml
             DEPLOYMENT_NAME: webapp2
             CONTAINER_NAME: webappp2
@@ -16,7 +16,7 @@ jobs:
         steps:
             - run:
                 name: Store Service Account
-                command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+                command: echo $CLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
 
             - setup_remote_docker
             - checkout
@@ -27,7 +27,7 @@ jobs:
                 #command: docker build -t webapppp .
                 command: docker build -t eu.gcr.io/${PROJECT_ID}/${DEPLOYMENT_NAME}:$CIRCLE_SHA1 .
 
-            - run: echo $GCLOUD_SERVICE_KEY > key.txt
+            - run: echo $CLOUD_SERVICE_KEY > key.txt
         # Decode the Service Account
             - run: base64 -i key.txt -d > ${HOME}/gcloud-service-key.json
         # Authenticate CircleCI with the service account file
