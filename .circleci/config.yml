@@ -27,10 +27,7 @@ jobs:
                 #command: docker build -t webapppp .
                 command: docker build -t eu.gcr.io/${PROJECT_ID}/${DEPLOYMENT_NAME}:$CIRCLE_SHA1 .
 
-            - run: echo $CLOUD_SERVICE_KEY > key.txt
-        # Decode the Service Account
-            - run: base64 -i key.txt -d > ${HOME}/gcloud-service-key.json
-        # Authenticate CircleCI with the service account file
+                 # Authenticate CircleCI with the service account file
             #- run: gcloud auth activate-service-account ${ACCOUNT_ID} --key-file ${HOME}/gcloud-service-key.json 
             - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json 
 
